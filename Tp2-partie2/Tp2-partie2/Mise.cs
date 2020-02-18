@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Utilitaires;
 
-namespace Tp2_partie2
+
+namespace SimulationLoterie
 {
     class Mise
     {
@@ -16,14 +17,16 @@ namespace Tp2_partie2
             m_iLesNombres = new int[6];
 
             int nombreGenerer;
-            bool contientNombreGenerer =true;
-            int j=0;
-            for(int i=0; i < m_iLesNombres.Length;i++)
+            bool contientNombreGenerer = true;
+            int j = 0;
+            for (int i = 0; i < m_iLesNombres.Length; i++)
             {
                 do
                 {
                     nombreGenerer = Aleatoire.GenererNombre(48) + 1;
-                    while(j<i)
+
+                    //Vérifie si le nombre généré est unique dans le tableau.
+                    while (j <= i)
                     {
                         if (nombreGenerer == m_iLesNombres[j])
                             contientNombreGenerer = true;
@@ -34,7 +37,14 @@ namespace Tp2_partie2
                 m_iLesNombres[i] = nombreGenerer;
             }
 
+            Array.Sort(m_iLesNombres);
+        }
 
+        public int GetNombre(Resultats.Indice indice)
+        {
+            if (0 < (int)indice || (int)indice > 5)
+                return -1;
+            else return m_iLesNombres[(int)indice];
         }
     }
 }
