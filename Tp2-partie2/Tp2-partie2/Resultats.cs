@@ -10,7 +10,7 @@ namespace SimulationLoterie
     {
         public enum Indice
         {
-            DeuxSurSixPlus,
+            DeuxSurSixPlus = 0,
             TroisSurSix,
             QuatreSurSix,
             CinqSurSix,

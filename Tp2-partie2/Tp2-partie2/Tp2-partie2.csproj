@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aleatoire.cs" />
+    <Compile Include="GestionnaireTirages.cs" />
     <Compile Include="Mise.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
