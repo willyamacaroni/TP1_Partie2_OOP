@@ -29,10 +29,8 @@ namespace SimulationLoterie
         //TO DO finir l'affichage
         public override string ToString()
         {
-            if (false)
-            {
-
-            }
+            if (m_lesResultats != null)
+                return "bing bong bing";
             else return string.Format("Résultat du tirage du {0}\n" +
                 "{1,-24}{2,8}\n" +
                 "{3,-24}{4,8}\n" +
