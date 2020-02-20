@@ -1,4 +1,15 @@
-﻿using System;
+﻿/******************************************************************************
+ * Classe:      Tirage
+ * 
+ * Fichier:     Tirage.cs
+ * 
+ * Auteur:      Willyam Arcand
+ * 
+ * But:         
+ * 
+ * Remarque:   
+ * ***************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,9 +101,29 @@ namespace SimulationLoterie
                 m_iLesNombresGagnants[i] = nombreGenerer;
             }
 
-            Array.Sort(m_iLesNombresGagnants);
+            Array.Sort(m_iLesNombresGagnants,0,6);
 
             return true;
+        }
+
+        public bool ValiderMises()
+        {
+            bool trouvee = true;
+            int indiceMise = 0;
+            for (int i = 0; i < m_lesMises.Length; i++)
+            {
+                for (int j = 0; j <= 6 ; j++)
+                {
+                    while (trouvee)
+                    {
+
+                    }
+                    if (m_iLesNombresGagnants[j] == m_lesMises[indiceMise].GetNombre())
+                    {
+
+                    }
+                }
+            }
         }
     }
 }

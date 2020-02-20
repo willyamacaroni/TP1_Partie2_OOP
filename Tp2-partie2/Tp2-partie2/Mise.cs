@@ -40,11 +40,11 @@ namespace SimulationLoterie
             Array.Sort(m_iLesNombres);
         }
 
-        public int GetNombre(Resultats.Indice indice)
+        public int GetNombre(int indice)
         {
-            if (0 < (int)indice || (int)indice > 5)
+            if (0 < indice || indice > 5)
                 return -1;
-            else return m_iLesNombres[(int)indice];
+            else return m_iLesNombres[indice];
         }
     }
 }
