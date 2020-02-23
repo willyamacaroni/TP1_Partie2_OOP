@@ -68,12 +68,12 @@ namespace SimulationLoterie
             if (nbMises < NB_MISES_MIN || nbMises > NB_MISES_MAX)
                 nbMises = ((NB_MISES_MIN + NB_MISES_MAX) / 2);
 
-            Mise[] lesMises = new Mise[nbMises];
+            m_lesMises = new Mise[nbMises];
 
             for (int i = 0; i < nbMises; i++)
-                lesMises[i] = new Mise();
+                m_lesMises[i] = new Mise();
 
-            return lesMises;
+            return m_lesMises;
         }
 
         //TO DO retourner vrai ou faux selon mises
@@ -108,22 +108,55 @@ namespace SimulationLoterie
 
         public bool ValiderMises()
         {
-            bool trouvee = true;
-            int indiceMise = 0;
-            for (int i = 0; i < m_lesMises.Length; i++)
+            bool trouvee = false;
+            int k;
+            int nbChiffreCommun = 0;
+            bool chiffreBonus;
+            if (m_lesMises.Length != 0 && m_iLesNombresGagnants != null)
             {
-                for (int j = 0; j <= 6 ; j++)
+                for (int i = 0; i < m_lesMises.Length; i++)
                 {
-                    while (trouvee)
+                    for (int j = 0; j <= 6; j++)
                     {
-
+                        k = 0;
+                        while (!trouvee && k <= 6)
+                        {
+                            if (m_iLesNombresGagnants[j] == m_lesMises[i].GetNombre(k))
+                            {
+                                nbChiffreCommun++;
+                                trouvee = true;
+                            }
+                            else k++;
+                        }
                     }
-                    if (m_iLesNombresGagnants[j] == m_lesMises[indiceMise].GetNombre())
-                    {
+                    if (m_iLesNombresGagnants[7] == m_lesMises[i].GetNombre(7))
+                        chiffreBonus = true;
 
+                    switch (nbChiffreCommun)
+                    {
+                        case 2:
+                            if (chiffreBonus = true)
+                                m_lesResultats.AugmenterQuantite(Resultats.Indice.DeuxSurSixPlus);
+                            break;
+                        case 3:
+                            m_lesResultats.AugmenterQuantite(Resultats.Indice.TroisSurSix);
+                            break;
+                        case 4:
+                            m_lesResultats.AugmenterQuantite(Resultats.Indice.QuatreSurSix);
+                            break;
+                        case 5:
+                            if (chiffreBonus = true)
+                                m_lesResultats.AugmenterQuantite(Resultats.Indice.CinqSurSixPlus);
+                            else m_lesResultats.AugmenterQuantite(Resultats.Indice.CinqSurSix);
+                            break;
+                        case 6:
+                            m_lesResultats.AugmenterQuantite(Resultats.Indice.SixSurSix);
+                            break;
                     }
                 }
+                return true;
             }
+            else return false;
         }
     }
 }
