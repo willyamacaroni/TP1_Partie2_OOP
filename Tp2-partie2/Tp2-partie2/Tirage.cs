@@ -40,15 +40,13 @@ namespace SimulationLoterie
         //TO DO finir l'affichage
         public override string ToString()
         {
-            if (m_lesResultats != null)
-                return "bing bong bing";
-            else return string.Format("Résultat du tirage du {0}\n" +
-                "{1,-24}{2,8}\n" +
-                "{3,-24}{4,8}\n" +
-                "{4,-24}{5,8}\n" +
-                "{6,-24}{7,8}\n" +
-                "{7,-24}{8,8}\n", m_dtmTirage.ToString(), "Nombre de mises:",
-                m_lesMises.Length.ToString(), "Gagnants du 2 sur 6+:",
+            if (m_lesResultats == null)
+                return "";
+            else
+            {
+                return string.Format("Résultat du tirage du {0}\n{1,-24}{2}\n{3,-24}{4}\n{5,-24}{6}\n{7,-24}{8}\n{9,-24}{10}\n{11,-24}{12}\n{13,-24}{14}\n",
+                m_dtmTirage, "Nombre de mises:", m_lesMises.Length,
+                "Gagnants du 2 sur 6+:",
                 m_lesResultats.GetQuantite(Resultats.Indice.DeuxSurSixPlus),
                 "Gagnants du 3 sur 6:",
                 m_lesResultats.GetQuantite(Resultats.Indice.TroisSurSix),
@@ -60,6 +58,8 @@ namespace SimulationLoterie
                 m_lesResultats.GetQuantite(Resultats.Indice.CinqSurSixPlus),
                 "Gagnants du 6 sur 6:",
                 m_lesResultats.GetQuantite(Resultats.Indice.SixSurSix));
+
+            }
 
         }
 
@@ -79,6 +79,7 @@ namespace SimulationLoterie
         //TO DO retourner vrai ou faux selon mises
         public bool Effectuer()
         {
+            m_lesResultats = new Resultats();
             m_iLesNombresGagnants = new int[7];
             int nombreGenerer;
             bool contientNombreGenerer = true;
@@ -100,8 +101,8 @@ namespace SimulationLoterie
                 } while (contientNombreGenerer);
                 m_iLesNombresGagnants[i] = nombreGenerer;
             }
-
-            Array.Sort(m_iLesNombresGagnants,0,6);
+            
+            Array.Sort(m_iLesNombresGagnants, 0, 5);
 
             return true;
         }
@@ -111,15 +112,16 @@ namespace SimulationLoterie
             bool trouvee = false;
             int k;
             int nbChiffreCommun = 0;
-            bool chiffreBonus;
+            bool chiffreBonus = false;
             if (m_lesMises.Length != 0 && m_iLesNombresGagnants != null)
             {
                 for (int i = 0; i < m_lesMises.Length; i++)
                 {
-                    for (int j = 0; j <= 6; j++)
+                    for (int j = 0; j < 6; j++)
                     {
                         k = 0;
-                        while (!trouvee && k <= 6)
+                        trouvee = false;
+                        while (!trouvee && k < 6)
                         {
                             if (m_iLesNombresGagnants[j] == m_lesMises[i].GetNombre(k))
                             {
@@ -129,13 +131,13 @@ namespace SimulationLoterie
                             else k++;
                         }
                     }
-                    if (m_iLesNombresGagnants[7] == m_lesMises[i].GetNombre(7))
+                    if (m_iLesNombresGagnants[6] == m_lesMises[i].GetNombre(6))
                         chiffreBonus = true;
 
                     switch (nbChiffreCommun)
                     {
                         case 2:
-                            if (chiffreBonus = true)
+                            if (chiffreBonus)
                                 m_lesResultats.AugmenterQuantite(Resultats.Indice.DeuxSurSixPlus);
                             break;
                         case 3:
@@ -145,7 +147,7 @@ namespace SimulationLoterie
                             m_lesResultats.AugmenterQuantite(Resultats.Indice.QuatreSurSix);
                             break;
                         case 5:
-                            if (chiffreBonus = true)
+                            if (chiffreBonus)
                                 m_lesResultats.AugmenterQuantite(Resultats.Indice.CinqSurSixPlus);
                             else m_lesResultats.AugmenterQuantite(Resultats.Indice.CinqSurSix);
                             break;
@@ -153,6 +155,8 @@ namespace SimulationLoterie
                             m_lesResultats.AugmenterQuantite(Resultats.Indice.SixSurSix);
                             break;
                     }
+                    nbChiffreCommun = 0;
+                    chiffreBonus = false;
                 }
                 return true;
             }

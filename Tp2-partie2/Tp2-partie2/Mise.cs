@@ -14,7 +14,7 @@ namespace SimulationLoterie
 
         public Mise()
         {
-            m_iLesNombres = new int[6];
+            m_iLesNombres = new int[7];
 
             int nombreGenerer;
             bool contientNombreGenerer = true;
@@ -26,6 +26,7 @@ namespace SimulationLoterie
                     nombreGenerer = Aleatoire.GenererNombre(48) + 1;
 
                     //Vérifie si le nombre généré est unique dans le tableau.
+                    j = 0;
                     while (j <= i)
                     {
                         if (nombreGenerer == m_iLesNombres[j])
@@ -42,7 +43,7 @@ namespace SimulationLoterie
 
         public int GetNombre(int indice)
         {
-            if (0 < indice || indice > 5)
+            if (indice < 0 || indice > 6)
                 return -1;
             else return m_iLesNombres[indice];
         }
