@@ -79,29 +79,27 @@ namespace SimulationLoterie
         //TO DO retourner vrai ou faux selon mises
         public bool Effectuer()
         {
-            m_lesResultats = new Resultats();
             m_iLesNombresGagnants = new int[7];
-            int nombreGenerer;
-            bool contientNombreGenerer = true;
+            int nombreGenerer = 0;
+            bool contientNombreGenerer;
             int j = 0;
             for (int i = 0; i < m_iLesNombresGagnants.Length; i++)
             {
-                do
+                contientNombreGenerer = false;
+                nombreGenerer = Aleatoire.GenererNombre(48) + 1;
+                j = 0;
+                while (j <= i)
                 {
-                    nombreGenerer = Aleatoire.GenererNombre(48) + 1;
-
-                    //Vérifie si le nombre généré est unique dans le tableau.
-                    while (j <= i)
+                    if (nombreGenerer == m_iLesNombresGagnants[j])
                     {
-                        if (nombreGenerer == m_iLesNombresGagnants[j])
-                            contientNombreGenerer = true;
-                        else contientNombreGenerer = false;
-                        j++;
+                        nombreGenerer = Aleatoire.GenererNombre(48) + 1;
+                        j = 0;
                     }
-                } while (contientNombreGenerer);
+                    else j++;
+                }
                 m_iLesNombresGagnants[i] = nombreGenerer;
             }
-            
+
             Array.Sort(m_iLesNombresGagnants, 0, 5);
 
             return true;
@@ -109,6 +107,7 @@ namespace SimulationLoterie
 
         public bool ValiderMises()
         {
+            m_lesResultats = new Resultats();
             bool trouvee = false;
             int k;
             int nbChiffreCommun = 0;
@@ -117,7 +116,7 @@ namespace SimulationLoterie
             {
                 for (int i = 0; i < m_lesMises.Length; i++)
                 {
-                    for (int j = 0; j < 6; j++)
+                    for (int j = 0; j < m_iLesNombresGagnants.Length - 1; j++)
                     {
                         k = 0;
                         trouvee = false;

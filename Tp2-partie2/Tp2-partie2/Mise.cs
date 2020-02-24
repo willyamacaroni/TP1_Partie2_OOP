@@ -16,25 +16,23 @@ namespace SimulationLoterie
         {
             m_iLesNombres = new int[7];
 
-            int nombreGenerer;
-            bool contientNombreGenerer = true;
+            int nombreGenerer = 0;
+            bool contientNombreGenerer;
             int j = 0;
             for (int i = 0; i < m_iLesNombres.Length; i++)
             {
-                do
+                contientNombreGenerer = false;
+                nombreGenerer = Aleatoire.GenererNombre(48) + 1;
+                j = 0;
+                while (j <= i)
                 {
-                    nombreGenerer = Aleatoire.GenererNombre(48) + 1;
-
-                    //Vérifie si le nombre généré est unique dans le tableau.
-                    j = 0;
-                    while (j <= i)
+                    if (nombreGenerer == m_iLesNombres[j])
                     {
-                        if (nombreGenerer == m_iLesNombres[j])
-                            contientNombreGenerer = true;
-                        else contientNombreGenerer = false;
-                        j++;
+                        nombreGenerer = Aleatoire.GenererNombre(48) + 1;
+                        j = 0;
                     }
-                } while (contientNombreGenerer);
+                    else j++;
+                }
                 m_iLesNombres[i] = nombreGenerer;
             }
 

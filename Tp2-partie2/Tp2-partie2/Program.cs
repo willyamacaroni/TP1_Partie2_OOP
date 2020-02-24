@@ -13,7 +13,7 @@ namespace Tp2_partie2
         static void Main(string[] args)
         {
             GestionnaireTirages GestionnaireTirages = null;
-            int[] tableauResultatsTotal = null;
+            int[] tableauResultatsTotal = new int[7];
             int nbMises;
             string choixMenu;
             do
@@ -59,10 +59,19 @@ namespace Tp2_partie2
                         Console.Clear();
                         if (GestionnaireTirages != null)
                         {
-                            tableauResultatsTotal = new int[7] { 0, 0, 0, 0, 0, 0,0 };
+                            for (int i = 0; i < tableauResultatsTotal.Length; i++)
+                                tableauResultatsTotal[i] = 0;
+                            if (GestionnaireTirages.GetTirage(1).LesResultats.GetQuantite(Resultats.Indice.TroisSurSix) == 0)
+                            {
+                                Console.WriteLine("Validation des mises en cours...");
+                                for (int i = 0; i < GestionnaireTirages.NB_TIRAGE; i++)
+                                {
+                                    GestionnaireTirages.GetTirage(i).ValiderMises();
+                                }
+                            }
+                            Console.Clear();
                             for (int i = 0; i < GestionnaireTirages.NB_TIRAGE; i++)
                             {
-
                                 tableauResultatsTotal[0] += GestionnaireTirages.GetTirage(i).LesResultats.GetQuantite(Resultats.Indice.DeuxSurSixPlus);
                                 tableauResultatsTotal[1] += GestionnaireTirages.GetTirage(i).LesResultats.GetQuantite(Resultats.Indice.TroisSurSix);
                                 tableauResultatsTotal[2] += GestionnaireTirages.GetTirage(i).LesResultats.GetQuantite(Resultats.Indice.QuatreSurSix);
