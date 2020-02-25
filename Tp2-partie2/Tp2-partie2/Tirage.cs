@@ -76,35 +76,48 @@ namespace SimulationLoterie
 
             return m_lesMises;
         }
-
-        //TO DO retourner vrai ou faux selon mises
+        /// <summary>
+        /// Permet d'effectuer le tirage s'il y a des mises
+        /// en générant la combinaison gagnante selon les règle
+        /// du loto Quebec 49. Les 6 premier chiffres sont triés
+        /// en ordre croissant
+        /// </summary>
+        /// <returns>Vrai si le tirage a été effectué avec succès.
+        /// Faux si il n'y a pas de mises</returns>
         public bool Effectuer()
         {
-            m_iLesNombresGagnants = new int[7];
-            int nombreGenerer = 0;
-            bool contientNombreGenerer;
-            int j = 0;
-            for (int i = 0; i < m_iLesNombresGagnants.Length; i++)
+            if (m_lesMises != null)
             {
-                contientNombreGenerer = false;
-                nombreGenerer = Aleatoire.GenererNombre(48) + 1;
-                j = 0;
-                while (j <= i)
+
+
+                m_iLesNombresGagnants = new int[7];
+                int nombreGenerer = 0;
+                bool contientNombreGenerer;
+                int j = 0;
+                for (int i = 0; i < m_iLesNombresGagnants.Length; i++)
                 {
-                    if (nombreGenerer == m_iLesNombresGagnants[j])
+                    contientNombreGenerer = false;
+                    nombreGenerer = Aleatoire.GenererNombre(48) + 1;
+                    j = 0;
+                    while (j <= i)
                     {
-                        nombreGenerer = Aleatoire.GenererNombre(48) + 1;
-                        j = 0;
+                        if (nombreGenerer == m_iLesNombresGagnants[j])
+                        {
+                            nombreGenerer = Aleatoire.GenererNombre(48) + 1;
+                            j = 0;
+                        }
+                        else j++;
                     }
-                    else j++;
+                    m_iLesNombresGagnants[i] = nombreGenerer;
                 }
-                m_iLesNombresGagnants[i] = nombreGenerer;
+
+                Array.Sort(m_iLesNombresGagnants, 0, 5);
+
+                return true;
             }
-
-            Array.Sort(m_iLesNombresGagnants, 0, 5);
-
-            return true;
+            else return false;
         }
+
 
         public bool ValiderMises()
         {

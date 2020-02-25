@@ -49,6 +49,12 @@ namespace SimulationLoterie
             Array.Sort(m_iLesNombres);
         }
 
+        /// <summary>
+        /// permet de retourner le nombre à l'indice reçu en paramètre
+        /// et à partir de l'attribut si cet indice est valide
+        /// </summary>
+        /// <param name="indice">indice du nombre que l'ont veut accéder.</param>
+        /// <returns></returns>
         public int GetNombre(int indice)
         {
             if (indice < 0 || indice > 6)
