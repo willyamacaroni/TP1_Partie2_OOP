@@ -1,4 +1,14 @@
-﻿using System;
+﻿/******************************************************************************
+ * Classe:      Résultats
+ * 
+ * Fichier:     Resultats.cs
+ * 
+ * Auteur:      Willyam Arcand
+ * 
+ * But:         
+ * 
+ * ***************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

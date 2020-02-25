@@ -1,4 +1,14 @@
-﻿using System;
+﻿/******************************************************************************
+ * Classe:      GEstionnaireTirages
+ * 
+ * Fichier:     GestionnaireTirages.cs
+ * 
+ * Auteur:      Willyam Arcand
+ * 
+ * But:         
+ * 
+ * ***************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +44,12 @@ namespace SimulationLoterie
             }
         }
 
+        /// <summary>
+        /// Permet d'obtenir un Tirage à un indice donnée
+        /// </summary>
+        /// <param name="indice">L'indice du tirage dans le tableau</param>
+        /// <returns>retourne le tirage si l'indice est validel.
+        /// Sinon retourne null.</returns>
         public Tirage GetTirage(int indice)
         {
             if (indice >= 0 && indice < NB_TIRAGE)

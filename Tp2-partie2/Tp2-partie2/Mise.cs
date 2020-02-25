@@ -1,4 +1,14 @@
-﻿using System;
+﻿/******************************************************************************
+ * Classe:      Mise
+ * 
+ * Fichier:     Mise.cs
+ * 
+ * Auteur:      Willyam Arcand
+ * 
+ * But:         
+ * 
+ * ***************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +24,7 @@ namespace SimulationLoterie
 
         public Mise()
         {
-            m_iLesNombres = new int[7];
+            m_iLesNombres = new int[6];
 
             int nombreGenerer = 0;
             bool contientNombreGenerer;

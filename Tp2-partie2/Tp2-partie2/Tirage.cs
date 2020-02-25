@@ -7,7 +7,6 @@
  * 
  * But:         
  * 
- * Remarque:   
  * ***************************************************************************/
 using System;
 using System.Collections.Generic;
@@ -44,7 +43,9 @@ namespace SimulationLoterie
                 return "";
             else
             {
-                return string.Format("Résultat du tirage du {0}\n{1,-24}{2}\n{3,-24}{4}\n{5,-24}{6}\n{7,-24}{8}\n{9,-24}{10}\n{11,-24}{12}\n{13,-24}{14}\n",
+                return string.Format("Résultat du tirage du {0}\n{1,-24}{2}" +
+                    "\n{3,-24}{4}\n{5,-24}{6}\n{7,-24}{8}\n{9,-24}{10}\n" +
+                    "{11,-24}{12}\n{13,-24}{14}\n",
                 m_dtmTirage, "Nombre de mises:", m_lesMises.Length,
                 "Gagnants du 2 sur 6+:",
                 m_lesResultats.GetQuantite(Resultats.Indice.DeuxSurSixPlus),
@@ -111,7 +112,9 @@ namespace SimulationLoterie
             bool trouvee = false;
             int k;
             int nbChiffreCommun = 0;
-            bool chiffreBonus = false;
+            int nbMisesGagnantes = 0;
+            int l = 0;
+            bool bonusTrouvee = false;
             if (m_lesMises.Length != 0 && m_iLesNombresGagnants != null)
             {
                 for (int i = 0; i < m_lesMises.Length; i++)
@@ -122,7 +125,8 @@ namespace SimulationLoterie
                         trouvee = false;
                         while (!trouvee && k < 6)
                         {
-                            if (m_iLesNombresGagnants[j] == m_lesMises[i].GetNombre(k))
+                            if (m_iLesNombresGagnants[j] ==
+                                m_lesMises[i].GetNombre(k))
                             {
                                 nbChiffreCommun++;
                                 trouvee = true;
@@ -130,34 +134,67 @@ namespace SimulationLoterie
                             else k++;
                         }
                     }
-                    if (m_iLesNombresGagnants[6] == m_lesMises[i].GetNombre(6))
-                        chiffreBonus = true;
+
 
                     switch (nbChiffreCommun)
                     {
                         case 2:
-                            if (chiffreBonus)
-                                m_lesResultats.AugmenterQuantite(Resultats.Indice.DeuxSurSixPlus);
+                            l = 0;
+                            bonusTrouvee = false;
+                            while (l<6 && !bonusTrouvee)
+                            {
+                                if (m_iLesNombresGagnants[6] ==
+                                    m_lesMises[i].GetNombre(l))
+                                {
+                                    m_lesResultats.AugmenterQuantite
+                                        (Resultats.Indice.DeuxSurSixPlus);
+                                    nbMisesGagnantes++;
+                                    bonusTrouvee = true;
+                                }
+                                else
+                                    l++;
+                            }
                             break;
                         case 3:
-                            m_lesResultats.AugmenterQuantite(Resultats.Indice.TroisSurSix);
+                            m_lesResultats.AugmenterQuantite
+                                (Resultats.Indice.TroisSurSix);
+                            nbMisesGagnantes++;
                             break;
                         case 4:
-                            m_lesResultats.AugmenterQuantite(Resultats.Indice.QuatreSurSix);
+                            m_lesResultats.AugmenterQuantite
+                                (Resultats.Indice.QuatreSurSix);
+                            nbMisesGagnantes++;
                             break;
                         case 5:
-                            if (chiffreBonus)
-                                m_lesResultats.AugmenterQuantite(Resultats.Indice.CinqSurSixPlus);
-                            else m_lesResultats.AugmenterQuantite(Resultats.Indice.CinqSurSix);
+                            l = 0;
+                            bonusTrouvee = false;
+                            while (l < 6 && !bonusTrouvee)
+                            {
+                                if (m_iLesNombresGagnants[6] == 
+                                    m_lesMises[i].GetNombre(l))
+                                {
+                                    m_lesResultats.AugmenterQuantite
+                                        (Resultats.Indice.CinqSurSixPlus);
+                                    bonusTrouvee = true;
+                                }
+                                else l++;
+                            }
+                            if (!bonusTrouvee)
+                                m_lesResultats.AugmenterQuantite
+                                    (Resultats.Indice.CinqSurSix);
+                            nbMisesGagnantes++;
                             break;
                         case 6:
-                            m_lesResultats.AugmenterQuantite(Resultats.Indice.SixSurSix);
+                            nbMisesGagnantes++;
+                            m_lesResultats.AugmenterQuantite
+                                (Resultats.Indice.SixSurSix);
                             break;
                     }
                     nbChiffreCommun = 0;
-                    chiffreBonus = false;
                 }
-                return true;
+                if (nbMisesGagnantes > 0)
+                    return true;
+                else return false;
             }
             else return false;
         }
