@@ -55,9 +55,10 @@ namespace Tp1_partie2
                                 dateAffichage + "...");
 
                             nbMises = Aleatoire.GenererNombre(200000) + 100000;
-                            gestionnaireTirages.GetTirage(i).Effectuer();
                             gestionnaireTirages.
                                 GetTirage(i).InscrireMises(nbMises);
+                            gestionnaireTirages.GetTirage(i).Effectuer();
+
                         }
                         misesValidee = false;
                         Console.WriteLine("");
