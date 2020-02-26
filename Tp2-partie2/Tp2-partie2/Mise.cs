@@ -5,7 +5,7 @@
  * 
  * Auteur:      Willyam Arcand
  * 
- * But:         
+ * But:         Représente une seule mise d'un tirage.  
  * 
  * ***************************************************************************/
 using System;

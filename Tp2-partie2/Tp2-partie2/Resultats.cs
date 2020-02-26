@@ -5,7 +5,7 @@
  * 
  * Auteur:      Willyam Arcand
  * 
- * But:         
+ * But:         Sert à stocker des résultats selon un énumération
  * 
  * ***************************************************************************/
 using System;

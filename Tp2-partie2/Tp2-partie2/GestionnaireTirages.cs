@@ -5,7 +5,7 @@
  * 
  * Auteur:      Willyam Arcand
  * 
- * But:         
+ * But:         Représente les tirages pour une année complète (104 tirages)
  * 
  * ***************************************************************************/
 using System;
@@ -21,6 +21,7 @@ namespace SimulationLoterie
         public const int NB_TIRAGE = 104;
 
         private Tirage[] m_lesTirages;
+
 
         public GestionnaireTirages()
         {

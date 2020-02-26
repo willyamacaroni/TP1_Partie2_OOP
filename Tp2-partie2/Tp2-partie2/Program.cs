@@ -5,7 +5,7 @@
  * 
  * Auteur:      Willyam Arcand
  * 
- * But:         
+ * But:         Sert a générer le menu et rouler le program
  * 
  * ***************************************************************************/
 using System;

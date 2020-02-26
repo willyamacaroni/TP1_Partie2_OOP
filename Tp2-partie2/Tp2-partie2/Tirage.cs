@@ -5,7 +5,7 @@
  * 
  * Auteur:      Willyam Arcand
  * 
- * But:         
+ * But:         Représente un seul tirage dans un gestionnaire de tirages
  * 
  * ***************************************************************************/
 using System;
@@ -36,11 +36,14 @@ namespace SimulationLoterie
         public Resultats LesResultats { get => m_lesResultats; }
         public Mise[] LesMises { get => m_lesMises; }
 
-        //TO DO finir l'affichage
+        /// <summary>
+        /// Permet de créer un string contenant les résultats du tirage
+        /// </summary>
+        /// <returns>Retourne un string avec les résultats du tirage</returns>
         public override string ToString()
         {
             if (m_lesResultats == null)
-                return "";
+                return "Les mises n'ont pas encore été validées pour ce tirage.";
             else
             {
                 return string.Format("Résultat du tirage du {0}\n{1,-24}{2}" +
@@ -64,6 +67,11 @@ namespace SimulationLoterie
 
         }
 
+        /// <summary>
+        /// Permet d'inscrire les toutes les mises d'un tirage
+        /// </summary>
+        /// <param name="nbMises">Le nombre de mise</param>
+        /// <returns>retourne l'attribut m_lesMises qui est un vecteur de mises.</returns>
         public Mise[] InscrireMises(int nbMises)
         {
             if (nbMises < NB_MISES_MIN || nbMises > NB_MISES_MAX)
@@ -122,11 +130,24 @@ namespace SimulationLoterie
         public bool ValiderMises()
         {
             m_lesResultats = new Resultats();
+            //Boolean permettant d'arrêter la boucle "while"
+            //une fois un chiffre en commun trouvé
             bool trouvee = false;
+
+            //Compteur d'ittérations
             int k;
+
+            //Garde compte des nombre de chiffre que la mise a en commun
+            //avec ceux du tirage
             int nbChiffreCommun = 0;
+
+            //Permet de s'assurer qu'il y a au moins une mises gagnante à la fin de la méthode
             int nbMisesGagnantes = 0;
+
+            //compteur d'ittérations
             int l = 0;
+
+            //Boolean permettant de savoir si la mise a le chiffre bonus
             bool bonusTrouvee = false;
             if (m_lesMises.Length != 0 && m_iLesNombresGagnants != null)
             {
