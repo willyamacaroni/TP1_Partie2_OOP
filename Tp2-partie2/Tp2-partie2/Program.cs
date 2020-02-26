@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using SimulationLoterie;
 using Utilitaires;
 
-namespace Tp2_partie2
+namespace Tp1_partie2
 {
     class Program
     {
